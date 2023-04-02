@@ -38,5 +38,6 @@ class Conexao:
                     resultado = cursor.fetchone()
             return resultado
         except Error as error:
-            return f"Ocorreu um erro {error}"    
+            return f"Ocorreu um erro {error}"          
+
     
