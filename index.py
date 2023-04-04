@@ -27,14 +27,20 @@ try:
         telefone = request.form['telefone']
         cep = request.form['cep']
         numero = request.form['numero']
-        observacao = request.form['observacao']
+        endereco = request.form['endereco']
+        bairro = request.form['bairro']
+        descricao = request.form['descricao']
+        horariofechamento = request.form['horariofechamento']
+        horarioabertura = request.form['horarioabertura']
+        finalsemana = request.form['finalsemana']
+        iniciosemana = request.form['iniciosemana']
         produtos = request.form['produtos']
         filename = imagem.filename
         mimetype = imagem.mimetype
         imagem.save(filename)
         url = fazer_upload_para_drive(filename, filename, mimetype, os.getenv("FOLDER"))
-        sql = "INSERT INTO estabelecimento (categoria_id, nome, imagem, telefone, cep, numero, observacao, produtos) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-        values = (categoria, nome, url, telefone, cep, numero, observacao, produtos)
+        sql = "INSERT INTO estabelecimento (id_categoria, nome, url, telefone, cep, numero, descricao, produtos, endereco, bairro, horariofechamento, horarioabertura, finalsemana, iniciosemana) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        values = (categoria, nome, url, telefone, cep, numero, descricao, produtos, endereco, bairro, horariofechamento, horarioabertura, finalsemana, iniciosemana)
         con.queryExecute(sql, values)
         os.remove(filename)
         return jsonify({'status': 'success'})   
@@ -47,7 +53,7 @@ try:
 
     @app.route('/mercados', methods=['GET'])
     def mercados():
-        sql = f"SELECT * FROM estabelecimento WHERE categoria_id = '3' "
+        sql = f"SELECT * FROM estabelecimento WHERE id_categoria = '3' "
         results = con.querySelect(sql, values=None)    
         return jsonify(results)
 
@@ -68,7 +74,7 @@ try:
             
     @app.route('/categoria/<int:id>', methods=['GET'])
     def get_categoria(id):
-        sql = f"SELECT * FROM estabelecimento WHERE categoria_id = '{id}'"
+        sql = f"SELECT * FROM estabelecimento WHERE id_categoria = '{id}'"
         results = con.querySelect(sql, values=None)        
         return jsonify(results) 
         
