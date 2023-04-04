@@ -50,10 +50,40 @@ try:
         sql = "SELECT * FROM categoria"
         results = con.querySelect(sql, values=None)           
         return jsonify(results)
-
+    
+    @app.route('/lanchonetes', methods=['GET'])
+    def lanchonetes():
+        sql = f"SELECT * FROM estabelecimento WHERE id_categoria = '1' "
+        results = con.querySelect(sql, values=None)    
+        return jsonify(results)
+    
+    @app.route('/academias', methods=['GET'])
+    def academias():
+        sql = f"SELECT * FROM estabelecimento WHERE id_categoria = '2' "
+        results = con.querySelect(sql, values=None)    
+        return jsonify(results)
+    
     @app.route('/mercados', methods=['GET'])
     def mercados():
         sql = f"SELECT * FROM estabelecimento WHERE id_categoria = '3' "
+        results = con.querySelect(sql, values=None)    
+        return jsonify(results)
+    
+    @app.route('/petshop', methods=['GET'])
+    def petshop():
+        sql = f"SELECT * FROM estabelecimento WHERE id_categoria = '4' "
+        results = con.querySelect(sql, values=None)    
+        return jsonify(results)
+    
+    @app.route('/farmacia', methods=['GET'])
+    def farmacia():
+        sql = f"SELECT * FROM estabelecimento WHERE id_categoria = '5' "
+        results = con.querySelect(sql, values=None)    
+        return jsonify(results)
+
+    @app.route('/otica', methods=['GET'])
+    def otica():
+        sql = f"SELECT * FROM estabelecimento WHERE id_categoria = '6' "
         results = con.querySelect(sql, values=None)    
         return jsonify(results)
 
@@ -69,8 +99,7 @@ try:
         sql = "INSERT INTO usuario (nome, email, telefone, cep, endereco, bairro, senha) VALUES (%s, %s, %s, %s, %s, %s, %s)"
         values = (nome, email, telefone, cep, endereco, bairro, senha)        
         con.queryExecute(sql, values)
-        return jsonify({'status': 'success'})
-        
+        return jsonify({'status': 'success'})        
             
     @app.route('/categoria/<int:id>', methods=['GET'])
     def get_categoria(id):
