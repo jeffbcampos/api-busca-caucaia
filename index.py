@@ -35,14 +35,15 @@ try:
         finalsemana = request.form['fimSemana']
         iniciosemana = request.form['inicioSemana']
         produtos = request.form['produtos']
+        facebook = request.form['facebook']
+        instagram = request.form['instagram']
+        whatsapp = request.form['whatsapp']
         filename = imagem.filename
-        mimetype = imagem.mimetype
-        # imagem.save(filename)
+        mimetype = imagem.mimetype        
         url = fazer_upload_para_drive(filename, imagem, mimetype, os.getenv("FOLDER"))
-        sql = "INSERT INTO estabelecimento (id_categoria, nome, imagem, telefone, cep, numero, descricao, produtos, endereco, bairro, horariofechamento, horarioabertura, finalsemana, iniciosemana) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        values = (categoria, nome, url, telefone, cep, numero, descricao, produtos, endereco, bairro, horariofechamento, horarioabertura, finalsemana, iniciosemana)
-        con.queryExecute(sql, values)
-        # os.remove(filename)
+        sql = "INSERT INTO estabelecimento (id_categoria, nome, imagem, telefone, cep, numero, descricao, produtos, endereco, bairro, horariofechamento, horarioabertura, finalsemana, iniciosemana, facebook, instagram, whatsapp) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        values = (categoria, nome, url, telefone, cep, numero, descricao, produtos, endereco, bairro, horariofechamento, horarioabertura, finalsemana, iniciosemana, facebook, instagram, whatsapp)
+        con.queryExecute(sql, values)        
         return jsonify({'status': 'success'})   
 
     @app.route('/categorias', methods=['GET'])
