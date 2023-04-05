@@ -37,12 +37,12 @@ try:
         produtos = request.form['produtos']
         filename = imagem.filename
         mimetype = imagem.mimetype
-        imagem.save(filename)
-        url = fazer_upload_para_drive(filename, filename, mimetype, os.getenv("FOLDER"))
+        # imagem.save(filename)
+        url = fazer_upload_para_drive(filename, imagem, mimetype, os.getenv("FOLDER"))
         sql = "INSERT INTO estabelecimento (id_categoria, nome, imagem, telefone, cep, numero, descricao, produtos, endereco, bairro, horariofechamento, horarioabertura, finalsemana, iniciosemana) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         values = (categoria, nome, url, telefone, cep, numero, descricao, produtos, endereco, bairro, horariofechamento, horarioabertura, finalsemana, iniciosemana)
         con.queryExecute(sql, values)
-        os.remove(filename)
+        # os.remove(filename)
         return jsonify({'status': 'success'})   
 
     @app.route('/categorias', methods=['GET'])

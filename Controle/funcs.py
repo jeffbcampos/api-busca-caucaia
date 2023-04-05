@@ -4,7 +4,7 @@ import os
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-from googleapiclient.http import MediaFileUpload
+from googleapiclient.http import MediaIoBaseUpload
 from google.auth.transport.requests import Request
 
 CREDENCIAIS = {
@@ -16,17 +16,16 @@ CREDENCIAIS = {
 'scopes': ['https://www.googleapis.com/auth/drive.file']
 }  
 
-def fazer_upload_para_drive(nome_arquivo, caminho_arquivo, mimetype, id_pasta):
+def fazer_upload_para_drive(nome_arquivo, imagem, mimetype, id_pasta):
         # """Faz o upload de um arquivo para o Google Drive."""
         try:
             # Autentica com a API do Google Drive
             creds = Credentials.from_authorized_user_info(info=CREDENCIAIS)
             service = build('drive', 'v3', credentials=creds)
-            novo_token = creds.refresh(Request())
-            print(novo_token)
+            novo_token = creds.refresh(Request())            
 
             # Cria o objeto MediaFileUpload com o arquivo a ser enviado
-            media = MediaFileUpload(caminho_arquivo, mimetype=mimetype)
+            media = MediaIoBaseUpload(imagem, mimetype=mimetype)
 
             # Faz o upload do arquivo para o Google Drive
             file_metadata = {'name': nome_arquivo, 'parents': [id_pasta]}
