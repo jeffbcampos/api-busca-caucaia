@@ -37,7 +37,7 @@ try:
         produtos = request.form['produtos']
         facebook = request.form['facebook']
         instagram = request.form['instagram']
-        whatsapp = request.form['whatsapp']
+        whatsapp = request.form['whatsApp']
         filename = imagem.filename
         mimetype = imagem.mimetype        
         url = fazer_upload_para_drive(filename, imagem, mimetype, os.getenv("FOLDER"))
